@@ -1,6 +1,6 @@
 
 import org.minyodev.commons.SparkJobDriver.SparkJob
-import com.minyodev.spark.jobs._
+import org.minyodev.spark.jobs._
 import org.apache.spark.{SparkConf, SparkContext}
 import org.minyodev.spark.jobs._
 
@@ -33,71 +33,66 @@ object WorkflowLauncher extends App {
     3. check all dependencies if finished, if yes execute job, if a dependency is not yet finished go to that job/step then apply #2 to #3 else go to next dependency
   * */
 
-  val jobs: HashMap[SparkJob, ListBuffer[SparkJob]] = new HashMap[SparkJob, ListBuffer[SparkJob]]
+  // val jobs: HashMap[SparkJob, ListBuffer[SparkJob]] = new HashMap[SparkJob, ListBuffer[SparkJob]]
+  val jobs = scala.collection.mutable.Set[run[SparkJob]]()
 
   /**
     * Represents a Job
     * @param job Given Job that extends to SparkJob class
     * @param dependencies Contains all jobs where job depends
     * */
-  case class run[T <: SparkJob](job: T, dependencies: ListBuffer[SparkJob] = ListBuffer[SparkJob]()) {
+  case class run[+T <: SparkJob](job: T) {
+    val dependencies = ListBuffer[run[SparkJob]]()
+    var isFinished = false
     // Check if already in HashMap
-    if(!jobs.contains(job)) jobs.put(job, dependencies)
+    if(!jobs.contains(this)) jobs += this
 
     // Put to ListBuffer its Job dependencies
-    def after(s: SparkJob*) {
-      s.foreach(n => dependencies.append(n))
+    def after(rs: run[SparkJob]*): this.type = {
+      rs.foreach(r => dependencies.append(r))
+      this
     }
   }
 
+  implicit def toRun[T <: SparkJob](job: T): run[T] = run[T](job)
+
+  /** no need */
   case class FutureJobs(job: SparkJob, future: Future[Unit], jobThatDepends: SparkJob, var isFinished: Boolean = false)
 
   def workflowLauncher(builder: => Unit): Unit = {
     // Declaration phase
     builder
 
-    // Preparation phase
-    val futures = jobs.flatMap(kv => {
-      if(kv._2.size > 0) {
-        kv._2.map(dpndcs => {
-          println(kv._1.name + " has dependencies with " + kv._2.mkString(","))
-          val future = Future { dpndcs.wrappedRun(sc) }
-          FutureJobs(dpndcs, future, kv._1)
-        })
-      }
-      else {
-        println("Running " + kv._1.name + "...")
-        val future = Future { kv._1.wrappedRun(sc) }
-        List(FutureJobs(kv._1, future, null))
+    // execution
+    jobs.foreach(r => {
+      if(!r.isFinished) {
+        runDependencies(r)
+        runJob(r)
       }
     })
 
-    /// ----Error na below
-    futures foreach(j => {
-      j
-      // If this job is a main job
-      if(j.jobThatDepends == null) {
-        if(j.future.isCompleted) {
-          println(j.job.name + " is completed!")
-          j.isFinished = true
-        }
-        else println(j.job.name + " contains errors.")
-      }
-      else {
-        // If job contains dependency
-        // Dunno what to put here........
-//        if(j.isFinished == true){
-//          if(j.future.isCompleted) {
-//            println(j.job.name + " is completed!")
-//            j.isFinished = true
-//          }
-//          else println(j.job.name + " contains errors.")
-//        }
-//        else {
-//
-//        }
-      }
-    })
   }
 
+  def runDependencies(r: run[_]): Boolean = {
+    if(r.dependencies.size == 0)
+      true // no to check dependencies, maybe this is the root
+    else {
+      r.dependencies
+        .foldLeft(true)((a, c) => {
+            if(c.isFinished) a & true
+            else a & { runDependencies(c) & runJob(c) }
+        })
+    }
+  }
+
+  def runJob(r: run[_]): Boolean = {
+    if(r.isFinished) true
+    else { // actual run here
+      // call r.job.wrappedRun here
+      // we'll just return true for now
+      // and update r.isFinished = true
+      r.isFinished = true
+      r.isFinished
+    }
+  }
 }
