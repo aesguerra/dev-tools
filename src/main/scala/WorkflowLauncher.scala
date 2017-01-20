@@ -1,7 +1,6 @@
 
-import org.minyodev.commons.SparkJobDriver.SparkJob
-import com.minyodev.spark.jobs._
 import org.apache.spark.{SparkConf, SparkContext}
+import org.minyodev.commons.SparkJobDriver.SparkJob
 import org.minyodev.spark.jobs._
 
 import scala.collection.mutable.{HashMap, ListBuffer}
@@ -86,16 +85,16 @@ object WorkflowLauncher extends App {
       else {
         // If job contains dependency
         // Dunno what to put here........
-//        if(j.isFinished == true){
-//          if(j.future.isCompleted) {
-//            println(j.job.name + " is completed!")
-//            j.isFinished = true
-//          }
-//          else println(j.job.name + " contains errors.")
-//        }
-//        else {
-//
-//        }
+        if(j.isFinished == true){
+          if(j.future.isCompleted) {
+            println(j.job.name + " is completed!")
+            j.isFinished = true
+          }
+          else println(j.job.name + " contains errors.")
+        }
+        else {
+
+        }
       }
     })
   }
