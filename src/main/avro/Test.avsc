@@ -1,0 +1,11 @@
+{
+	"namespace"	: "org.minyo.schema.avro",
+	"name"		: "Test",
+	"type"		: "record",
+	"fields"	:
+	[
+        { "name" : "somename", "type" : [ "null", "string" ], "default" : null },
+        { "name" : "someint", "type" : [ "null", "int" ], "default" : null },
+        { "name" : "somelong", "type" : [ "null", "long" ], "default" : null }
+    ]
+}
