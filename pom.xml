@@ -29,7 +29,7 @@
             <id>minyo-repo</id>
             <url>http://localhost:8081/artifactory/libs-release</url>
         </repository>
-        <!-- talas repository -->
+        <!-- minyo repository -->
         <repository>
             <snapshots>
                 <enabled>false</enabled>
