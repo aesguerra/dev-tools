@@ -23,7 +23,7 @@ object PhoenixClient extends App {
 
   def urlEncode(url: String): String = URLEncoder.encode(url, "UTF-8")
 
-  val url = buildUri("http://localhost", ":40000", Map("TENANT_ID" -> "300002", "VENUE_ID" -> "2033647217753736341", "ACCESS_POINT_ID" -> "1548401534025892498"))
+  val url = buildUri("http://localhost", ":40000/user", Map("TENANT_ID" -> "300002", "VENUE_ID" -> "2033647217753736341", "ACCESS_POINT_ID" -> "1548401534025892498"))
   val req = RequestBuilder().url(url).setHeader("Accept", "*/*").buildGet
   val resp = client(req)
   resp.onSuccess(r => {

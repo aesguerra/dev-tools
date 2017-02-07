@@ -1,0 +1,48 @@
+<assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2
+  http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+    <id>uber</id>
+    <formats>
+        <format>jar</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>${project.basedir}/target/classes</directory>
+            <outputDirectory>/</outputDirectory>
+
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>/</outputDirectory>
+            <unpack>true</unpack>
+            <scope>runtime</scope>
+            <excludes>
+                <!-- <exclude>org.apache.hadoop:hadoop-*</exclude>
+                <exclude>org.apache.spark:spark-*</exclude> -->
+            </excludes>
+            <includes>
+                <include>joda-time:joda-time</include>
+
+                <include>org.apache.avro:avro-tools</include>
+                <include>org.apache.avro:avro-compiler</include>
+                <include>org.apache.avro:avro-ipc</include>
+
+                <include>org.apache.curator:curator-client</include>
+                <include>org.apache.kafka:kafka*</include>
+                <include>org.apache.hbase:hbase*</include>
+
+                <include>redis.clients:jedis</include>
+                <include>mysql:mysql-connector-java</include>
+                <include>log4j:*</include>
+
+                <include>org.json4s:*</include>
+            </includes>
+
+        </dependencySet>
+    </dependencySets>
+</assembly>
