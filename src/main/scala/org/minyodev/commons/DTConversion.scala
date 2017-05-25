@@ -16,10 +16,12 @@ class DTConversion[T](x: T) {
 }
 
 object DTConversion {
+  import scala.language.implicitConversions
+
   val FMT_DTTM_DASHES = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")
   val FMT_DTHR_DASHES = DateTimeFormat.forPattern("yyyy-MM-dd HH")
 
-  sealed trait toMillis {
+  trait toMillis {
     val dt: String
 
     /**
@@ -34,7 +36,7 @@ object DTConversion {
 
   }
 
-  sealed trait fromMillis {
+  trait fromMillis {
     val millis: java.lang.Long
 
     /**
