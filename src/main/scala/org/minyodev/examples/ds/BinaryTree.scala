@@ -1,4 +1,4 @@
-package org.minyodev.examples
+package org.minyodev.examples.ds
 
 /**
   * Recursive tree traversals
