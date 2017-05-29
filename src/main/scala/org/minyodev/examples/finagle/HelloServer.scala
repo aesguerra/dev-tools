@@ -1,4 +1,4 @@
-package org.minyodev.finagle
+package org.minyodev.examples.finagle
 
 
 import com.twitter.finagle.http.{ParamMap, Request, Response, Status}

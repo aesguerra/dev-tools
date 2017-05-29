@@ -1,4 +1,4 @@
-package org.minyodev.json
+package org.minyodev.examples.finatra.json
 
 import org.json4s._
 import org.json4s.jackson.JsonMethods._

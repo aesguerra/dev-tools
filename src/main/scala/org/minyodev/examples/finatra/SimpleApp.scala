@@ -1,4 +1,4 @@
-package org.minyodev.finatra
+package org.minyodev.examples.finatra
 
 import com.twitter.finagle.http.Request
 import com.twitter.finatra.http.{Controller, HttpServer}

@@ -1,4 +1,4 @@
-package org.minyodev.phoenix
+package org.minyodev.examples.phoenix
 
 import java.sql.{Connection, DriverManager}
 

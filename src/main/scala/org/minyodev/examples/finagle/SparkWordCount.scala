@@ -1,4 +1,4 @@
-package org.minyodev.finagle
+package org.minyodev.examples.finagle
 
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext

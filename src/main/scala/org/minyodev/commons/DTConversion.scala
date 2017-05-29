@@ -8,14 +8,14 @@ import org.joda.time.format.DateTimeFormat
   * <p>-datetime string to millis</p>
   * <p>-drop time from epoch date format</p>
   */
-class DTConversion[T](x: T) {
+class DateUtil[T](x: T) {
   def second = x
   def minute = x.asInstanceOf[Int] * 60
   def hour = x.asInstanceOf[Int] * 60 * 60
   def days = x.asInstanceOf[Int] * 24 * 60 * 60
 }
 
-object DTConversion {
+object DateUtil {
   import scala.language.implicitConversions
 
   val FMT_DTTM_DASHES = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")

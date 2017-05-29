@@ -1,4 +1,4 @@
-package org.minyodev.finagle
+package org.minyodev.examples.finagle
 
 import com.twitter.finagle.{Http, Service, http}
 import com.twitter.util.{Await, Future}

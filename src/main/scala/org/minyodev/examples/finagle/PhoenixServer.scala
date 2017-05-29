@@ -1,4 +1,4 @@
-package org.minyodev.finagle
+package org.minyodev.examples.finagle
 
 import java.sql.{Connection, DriverManager}
 import java.util.Properties
