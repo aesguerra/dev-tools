@@ -1,7 +1,6 @@
 package org.minyodev.examples.hive
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.hive.thriftserver.HiveThriftServer2
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -20,8 +19,6 @@ object Test {
       .config("spark.some.config.option", "some-value")
       .enableHiveSupport()
       .getOrCreate()
-
-    HiveThriftServer2.startWithContext(spark.sqlContext)
 
     spark.sql("CREATE DATABASE IF NOT EXISTS spark")
     spark.sql("use spark")
