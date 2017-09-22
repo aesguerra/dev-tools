@@ -2,6 +2,8 @@ package org.minyodev.spark
 
 import com.typesafe.config.ConfigFactory
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
+import org.minyodev.commons.KafkaProducerUtils
+import org.minyodev.commons.lang.JSONUtils
 
 import scala.util.Random
 

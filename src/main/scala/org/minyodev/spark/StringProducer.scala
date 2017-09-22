@@ -2,6 +2,7 @@ package org.minyodev.spark
 
 import com.typesafe.config.ConfigFactory
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
+import org.minyodev.commons.KafkaProducerUtils
 
 object StringProducer {
 
