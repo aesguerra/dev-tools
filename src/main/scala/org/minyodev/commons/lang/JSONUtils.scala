@@ -9,6 +9,7 @@ import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
   * related functionality for performing conversions.
   * <p>
   * Sample usage can be found at {@link com.cloud4wi.examples.EventMessages}
+  * hello world
   * */
 object JSONUtils {
 
